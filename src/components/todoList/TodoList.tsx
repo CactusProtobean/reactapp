@@ -1,26 +1,28 @@
-import Button from "../Button";
-import TodoItem from "../todoItem/TodoItem";
+interface TodoListProps {
+  items: string[];
+  onRemove: (index: number) => void;
+}
 
-<TodoItem />
-
-function TodoList() {
-        const item = {id: 1, title: "Todo 1", completed: false}
-
+function TodoList({ items, onRemove }: TodoListProps) {
   return (
     <div>
-        <h1>Todo List</h1>
-        <TodoItem />
-        <Button color="primary" onClick={() => {}}>
-          Add Todo
-        </Button>
-        <br />
-        {item.title}
-        <br />
-        <label>
-        Checkbox: <input type="checkbox" name="myCheckbox" />
-      </label>
+      <h1>Todo List</h1>
+      {items.length === 0 ? (
+        <p>No todos yet.</p>
+      ) : (
+        <ul>
+          {items.map((item, index) => (
+            <li key={index}>
+              {item}{' '}
+              <button type="button" onClick={() => onRemove(index)}>
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-  )
+  );
 }
 
 export default TodoList
